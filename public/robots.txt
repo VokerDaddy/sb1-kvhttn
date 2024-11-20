@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://mimis.ai/sitemap.xml
+
+# Common crawl directives
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Host
+Host: mimis.ai
