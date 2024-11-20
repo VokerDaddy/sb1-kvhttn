@@ -1,90 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PhoneIcon } from '@heroicons/react/24/solid';
+import Vapi from '@vapi-ai/web';
+
+const ASSISTANT_ID = '9b8055da-ff58-4bdd-8aa8-05bbc3c14493';
+const API_KEY = 'af449405-9f0e-41ba-8243-a62b3ef86ae1';
 
 export default function HeroAnimation() {
   const [isLoading, setIsLoading] = useState(false);
   const [isCallActive, setIsCallActive] = useState(false);
-  const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!window.vapiSDK && !isSDKLoaded) {
-      const script = document.createElement('script');
-      script.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
-      script.defer = true;
-      script.async = true;
-      script.onload = () => {
-        console.log('Vapi SDK loaded');
-        setIsSDKLoaded(true);
-      };
-      script.onerror = (error) => {
-        console.error('Failed to load Vapi SDK:', error);
-      };
-      document.head.appendChild(script);
-
-      return () => {
-        document.head.removeChild(script);
-      };
-    }
-  }, [isSDKLoaded]);
+  const [vapiInstance, setVapiInstance] = useState(null);
 
   const handleClick = async () => {
-    if (!window.vapiConfig || !window.vapiSDK) {
-      console.error('Vapi configuration or SDK not found');
-      return;
-    }
-
-    if (isCallActive) {
+    if (isCallActive && vapiInstance) {
+      vapiInstance.stop();
       setIsCallActive(false);
+      setVapiInstance(null);
       return;
     }
 
     if (!isLoading) {
       setIsLoading(true);
       try {
-        const vapiInstance = window.vapiSDK.run({
-          apiKey: window.vapiConfig.apiKey,
-          assistant: window.vapiConfig.assistant,
-          enableDevelopmentMode: true,
-          config: {
-            position: "center",
-            offset: "20px",
-            width: "150px",
-            height: "150px"
-          }
-        });
+        const vapi = new Vapi(API_KEY);
 
-        vapiInstance.on('call-start', () => {
+        vapi.on('call-start', () => {
           setIsLoading(false);
           setIsCallActive(true);
         });
 
-        vapiInstance.on('call-end', () => {
+        vapi.on('call-end', () => {
           setIsCallActive(false);
+          setVapiInstance(null);
         });
 
-        vapiInstance.on('error', (error) => {
-          console.error('Vapi error:', error);
+        vapi.on('error', (error) => {
+          console.error('Call error:', error);
           setIsLoading(false);
           setIsCallActive(false);
+          setVapiInstance(null);
         });
+
+        await vapi.start(ASSISTANT_ID);
+        setVapiInstance(vapi);
       } catch (error) {
-        console.error('Failed to start call:', error);
+        console.error('Call initialization failed:', error);
         setIsLoading(false);
+        setVapiInstance(null);
       }
     }
   };
 
   return (
-    <div className="relative w-full h-full min-h-[300px]">
-      <div className="absolute inset-0 bg-[url('/images/grid.png')] bg-center bg-cover opacity-[0.93]" />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+    <div className="relative w-full h-full min-h-[300px] flex flex-col items-center justify-center">
+      {/* Main content area */}
+      <div className="w-full max-w-sm text-center space-y-6">
+        {/* Main call button */}
         <motion.button
           onClick={handleClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          disabled={isLoading || !isSDKLoaded}
-          className="w-[150px] h-[150px] bg-gradient-to-br from-[#64007B] to-[#C80D83] rounded-full border-2 border-white outline-none relative group cursor-pointer shadow-lg disabled:opacity-75 disabled:cursor-wait"
+          disabled={isLoading}
+          className="w-[150px] h-[150px] bg-gradient-to-br from-[#64007B] to-[#C80D83] rounded-full border-2 border-white outline-none relative group cursor-pointer shadow-xl disabled:opacity-75 disabled:cursor-wait mx-auto"
         >
           <div className="absolute inset-0 flex items-center justify-center">
             <PhoneIcon 
@@ -101,14 +78,21 @@ export default function HeroAnimation() {
           <div className="absolute inset-0 rounded-full border-[5px] border-[#255cff] animate-ripple opacity-30" />
           <div className="absolute inset-0 rounded-full border-[5px] border-[#255cff] animate-ripple-delayed opacity-20" />
         </motion.button>
-        <div className="mt-4 space-y-1">
-          <p className="text-[#64007B] font-medium text-lg">
+
+        {/* Title and description */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="space-y-4"
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-[#64007B] bg-white/90 backdrop-blur-sm rounded-xl py-3 px-6 inline-block shadow-lg">
             {isLoading ? 'Connecting...' : isCallActive ? 'In call with Mimis' : 'Talk to Mimis'}
+          </h3>
+          <p className="text-base md:text-lg text-gray-700 bg-white/90 backdrop-blur-sm rounded-xl py-3 px-6 leading-relaxed shadow-lg">
+            {isLoading ? 'Please wait' : isCallActive ? 'Click to end call' : 'Experience our AI assistant live - right here in your browser!'}
           </p>
-          <p className="text-gray-600 text-sm">
-            {isLoading ? 'Please wait' : isCallActive ? 'Click to end call' : 'Try our AI assistant right from your browser'}
-          </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
