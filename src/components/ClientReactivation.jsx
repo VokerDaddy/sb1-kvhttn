@@ -7,16 +7,18 @@ const ClientReactivation = () => {
   const audioUrl = "https://firebasestorage.googleapis.com/v0/b/mimisai-database.firebasestorage.app/o/reactivate.wav?alt=media&token=3a7e2331-142b-4fa9-b425-0e653698e535";
 
   return (
-    <div className="bg-gradient-to-r from-[#F7E0F9] to-[#FFF6E4] py-20">
+    <div className="bg-gradient-to-br from-[#F7E0F9] to-[#FFF6E4] py-20">
       <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-12">
         <div className="max-w-xl w-full">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl font-medium mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0A2540] leading-[1.1] mb-6"
           >
-            Client Reactivation
+            Client
+            <br />
+            Reactivation
           </motion.h2>
           
           <motion.p 
@@ -24,9 +26,9 @@ const ClientReactivation = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg leading-relaxed mb-12"
+            className="text-[#425466] text-xl md:text-2xl leading-relaxed max-w-2xl mb-12"
           >
-            Reach out to customers who haven't made purchases in a while and inform them of your exciting new offer. Mimis AI can provide helpful answers to common questions, and guide clients towards the next step in the sales process.
+            Reach out to customers who haven't made purchases in a while and inform them of your exciting new offer.
           </motion.p>
 
           <motion.div 
@@ -34,10 +36,10 @@ const ClientReactivation = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mb-8"
+            className="mb-8 space-y-4"
           >
-            <h3 className="text-lg font-medium mb-4">As a call result Mimis AI</h3>
-            <ul className="list-disc pl-6 space-y-2">
+            <h3 className="text-lg font-medium text-[#0A2540]">As a call result Mimis AI</h3>
+            <ul className="list-disc pl-6 space-y-3 text-[#425466]">
               <li>Sends an email or message with information</li>
               <li>Activates services online</li>
               <li>Sends data to CRM system</li>
@@ -66,8 +68,8 @@ const ClientReactivation = () => {
             transition={{ delay: 0.4 }}
             className="mb-8"
           >
-            <h4 className="text-lg font-medium mb-1">60%</h4>
-            <p className="text-sm text-gray-700">cuts costs on clients reactivation</p>
+            <h4 className="text-3xl font-bold text-[#0A2540] mb-2">60%</h4>
+            <p className="text-[#425466]">cuts costs on clients reactivation</p>
           </motion.div>
 
           <motion.button 

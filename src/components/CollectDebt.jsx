@@ -15,9 +15,11 @@ const CollectDebt = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl font-medium mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0A2540] leading-[1.1] mb-6"
           >
-            Collect Debts
+            Collect
+            <br />
+            Debts
           </motion.h2>
           
           <motion.p 
@@ -25,7 +27,7 @@ const CollectDebt = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg leading-relaxed mb-12"
+            className="text-[#425466] text-xl md:text-2xl leading-relaxed max-w-2xl mb-12"
           >
             Our Voice Assistant covers all stages of the process, including in-time notifications, soft collection, debt restructuring and information updates.
           </motion.p>
@@ -35,10 +37,10 @@ const CollectDebt = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mb-8"
+            className="mb-8 space-y-4"
           >
-            <h3 className="text-lg font-medium mb-4">As a call result Mimis AI</h3>
-            <ul className="list-disc pl-6 space-y-2">
+            <h3 className="text-lg font-medium text-[#0A2540]">As a call result Mimis AI</h3>
+            <ul className="list-disc pl-6 space-y-3 text-[#425466]">
               <li>Increases debt recovery without increasing the headcount</li>
               <li>Offers several options for debt repayment</li>
               <li>Saves operators from burnout</li>
@@ -66,8 +68,8 @@ const CollectDebt = () => {
             transition={{ delay: 0.4 }}
             className="mb-8"
           >
-            <h4 className="text-lg font-medium mb-1">Up to 2 times</h4>
-            <p className="text-sm text-gray-700">communication costs down</p>
+            <h4 className="text-3xl font-bold text-[#0A2540] mb-2">Up to 2 times</h4>
+            <p className="text-[#425466]">communication costs down</p>
           </motion.div>
 
           <motion.div 
