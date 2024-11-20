@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #3152BB;
+  --secondary-color: #2483C3;
+  --accent-color: #222222;
+}
+
+@keyframes ripple {
+  0% { transform: scale(1.1); opacity: 0.2; }
+  50% { transform: scale(1.15); opacity: 0.1; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+@keyframes ripple-delayed {
+  0% { transform: scale(1.1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.animate-ripple {
+  animation: ripple 3s ease-in-out infinite;
+}
+
+.animate-ripple-delayed {
+  animation: ripple-delayed 3s ease-in-out infinite;
+}
+
+/* Icon classes */
+.icon-countdown-timer::before { content: "⏱"; }
+.icon-settings1::before { content: "⚙️"; }
+.icon-phone-handset::before { content: "📞"; }
+.icon-database1::before { content: "📊"; }
+
+/* Tab transitions */
+.tab-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+.tab-content-enter {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+.tab-content-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.tab-content-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tab-content-exit-active {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease-in-out;
+}
