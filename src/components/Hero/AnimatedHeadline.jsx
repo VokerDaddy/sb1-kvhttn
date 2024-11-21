@@ -15,8 +15,8 @@ export default function AnimatedHeadline() {
   }, []);
 
   return (
-    <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-      <div className="flex flex-wrap">
+    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+      <div className="flex flex-wrap justify-center lg:justify-start">
         <AnimatePresence mode="wait">
           <motion.span
             key={words[currentIndex]}
