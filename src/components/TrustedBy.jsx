@@ -29,9 +29,6 @@ const logos = [
 export default function TrustedBy() {
   return (
     <div className="overflow-hidden">
-      <h3 className="text-xl text-[#474747] font-bold mb-8">
-        Trusted by companies<br />big and small
-      </h3>
       <div className="grid grid-cols-1 md:grid-cols-12 items-center gap-8">
         <div className="md:col-span-12">
           <Swiper
