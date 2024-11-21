@@ -29,9 +29,9 @@ export default function AnimatedHeading() {
             {words[currentIndex]}
           </motion.span>
         </AnimatePresence>
-        <span>your</span>
+        <span className="text-white">your</span>
       </div>
-      <span className="block">calls with Mimis AI</span>
+      <span className="block text-white">calls with Mimis AI</span>
     </h1>
   );
 }
